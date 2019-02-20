@@ -48,7 +48,7 @@ fi
 
 # Add structure to the entailment data
 if [ ! -f ${input_file_as_entailment_with_struct} ]; then
-  java -Xmx8G -jar data/ARC-V1-Models-Feb2018/question-tuplizer.jar \
+  java -Xmx8G -jar data/ARC-V1-Models-Aug2018/question-tuplizer.jar \
     ${input_file_as_entailment} \
     ${input_file_as_entailment_with_struct}.$$
   mv ${input_file_as_entailment_with_struct}.$$ ${input_file_as_entailment_with_struct}
