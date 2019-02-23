@@ -27,7 +27,7 @@ unzip $(basename $MODELS_URL)
 cd ..
 
 # Build the index
-python scripts/index-corpus.py \
-	data/ARC-V1-Feb2018/ARC_Corpus.txt \
-	arc_corpus \
-	$ES_HOST
+#python scripts/index-corpus.py \
+#	data/ARC-V1-Feb2018/ARC_Corpus.txt \
+#	arc_corpus \
+#	$ES_HOST
