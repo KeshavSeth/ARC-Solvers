@@ -4,7 +4,12 @@
 
 # Ignore data files
 /data/
+arc.egg-info/
 
 # Intellij specific
 /.idea/
 /*.iml
+
+
+
+*.ipynb_checkpoints

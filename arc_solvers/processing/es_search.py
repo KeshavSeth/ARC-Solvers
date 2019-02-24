@@ -55,23 +55,31 @@ class EsSearch:
         """
         choice_hits = dict()
         for choice in choices:
-            choice_hits[choice] = self.filter_hits(self.get_hits_for_choice(question, choice))
+            key = choice['text'] if 'hypothesis' in choice else choice
+            choice_hits[key] = self.filter_hits(self.get_hits_for_choice(
+                question, choice))
         return choice_hits
 
     # Constructs an ElasticSearch query from the input question and choice
     # Uses the last self._max_question_length characters from the question and requires that the
     # text matches the answer choice and the hit type is a "sentence"
     def construct_qa_query(self, question, choice):
+        if 'hypothesis' in choice:
+            text = choice['hypothesis'][-self._max_question_length:]
+            fchoice = choice['text']
+        else:
+            text = question[-self._max_question_length:] + " " + choice
+            fchoice = choice
         return {"from": 0, "size": self._max_hits_retrieved,
                 "query": {
                     "bool": {
                         "must": [
                             {"match": {
-                                "text": question[-self._max_question_length:] + " " + choice
+                                "text": text
                             }}
                         ],
                         "filter": [
-                            {"match": {"text": choice}},
+                            {"match": {"text": fchoice}},
                             {"type": {"value": "sentence"}}
                         ]
                     }
