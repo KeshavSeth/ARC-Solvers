@@ -8,6 +8,6 @@ class ProgrammaticalQ2AReformer(Formulator):
         fitb = get_fitb_from_question(sample['question']['stem'])
         choices = sample['question']['choices']
         for idx in range(len(choices)):
-            choices[idx]['hypothesis'] = create_hypothesis(fitb, choices[
+            choices[idx]['new_query'] = create_hypothesis(fitb, choices[
                 idx]['text'])
         return sample

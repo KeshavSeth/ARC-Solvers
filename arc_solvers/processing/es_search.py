@@ -55,7 +55,7 @@ class EsSearch:
         """
         choice_hits = dict()
         for choice in choices:
-            key = choice['text'] if 'hypothesis' in choice else choice
+            key = choice['text'] if 'new_query' in choice else choice
             choice_hits[key] = self.filter_hits(self.get_hits_for_choice(
                 question, choice))
         return choice_hits
@@ -64,8 +64,8 @@ class EsSearch:
     # Uses the last self._max_question_length characters from the question and requires that the
     # text matches the answer choice and the hit type is a "sentence"
     def construct_qa_query(self, question, choice):
-        if 'hypothesis' in choice:
-            text = choice['hypothesis'][-self._max_question_length:]
+        if 'new_query' in choice:
+            text = choice['new_query'][-self._max_question_length:]
             fchoice = choice['text']
         else:
             text = question[-self._max_question_length:] + " " + choice
