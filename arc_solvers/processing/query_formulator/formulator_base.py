@@ -44,23 +44,24 @@ JSONL format of files
     {
    "id": "Mercury_SC_415702",
    "question": {
-      "stem": "..."
+      "stem": "...",
       "choice": {"text": "dry palms", "label": "A"},
-      "hypothesis": {}
+      "new_query": "..."
     },
-     "answerKey":"A"
+    "answerKey":"A"
   }
   ...
   {
    "id": "Mercury_SC_415702",
    "question": {
-      "stem": "..."
-      "choice": {"text":"palms covered with lotion","label":"D"}
-      "hypothesis": {}
-     "answerKey":"A"
+      "stem": "...",
+      "choice": {"text":"palms covered with lotion","label":"D"},
+      "new_query": "..."
+    },
+    "answerKey":"A"
   }
   
-  Every formulator will add a hypothesis related to the choice at the same 
+  Every formulator will add a new_query related to the choice at the same 
   scope level
 """
 class ReformulatorBase:
