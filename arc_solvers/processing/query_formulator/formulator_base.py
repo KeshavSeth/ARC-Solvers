@@ -184,7 +184,7 @@ def count(filepath):
     
 if __name__ == "__main__":
     QA_FILE_PATH = "data/ARC-V1-Feb2018/ARC-Challenge/ARC-Challenge-Test.jsonl"
-    output_filepath = "data/ARC-V1-Feb2018/ARC-Challenge/ARC-Challenge-Test_reformqa.jsonl"
+    output_filepath = "data/ARC-V1-Feb2018/ARC-Challenge/ARC-Challenge-Test_with_hits_reformqa.jsonl"
 
 #    reformulator = ReformulatorBase()
 #    reformulator.reformulate_query(QA_FILE_PATH, output_filepath)
