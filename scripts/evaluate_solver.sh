@@ -9,6 +9,7 @@ input_file=$1
 model_dir=$2
 # Set this to name your run
 run_name=default
+#run_name=reformqa
 if [ -z $model_dir ] ; then
   echo "USAGE: ./scripts/evaluate_solver.sh question_file.jsonl model_dir/"
   exit 1
