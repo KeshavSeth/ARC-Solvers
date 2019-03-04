@@ -63,7 +63,7 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(os.path.join(__file__, os.par
 from arc_solvers.processing.es_search import EsSearch, EsHit
 
 MAX_HITS = 8
-es_search = EsSearch(max_hits_per_choice=MAX_HITS, max_hits_retrieved=100)
+es_search = EsSearch(es_client="node008", max_hits_per_choice=MAX_HITS, max_hits_retrieved=100)
 
 
 def add_retrieved_text(qa_file, output_file):
