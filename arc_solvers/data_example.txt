@@ -1,0 +1,96 @@
+# data/ARC-V1-Feb2018/ARC-Challenge/ARC-Challenge-Train_with_hits_onlyAns.jsonl
+{
+    "id": "Mercury_SC_415702", 
+    "question": {
+        "stem": "George wants to warm his hands quickly by rubbing them. Which skin surface will produce the most heat?", 
+        "choice": "dry palms", 
+        "support": {
+            "text": "Motion produces heat when we rub the palms of our hands briskly together.", 
+            "type": "sentence", "ir_pos": 0, "ir_score": 31.004463
+        }
+    }, 
+    "answerKey": "A"
+}
+
+# data/ARC-V1-Feb2018/ARC-Challenge/ARC-Challenge-Test_with_hits_default.jsonl
+{
+    "id": "Mercury_7175875", 
+    "question": {
+        "stem": "An astronomer observes that a planet rotates faster after a meteorite impact. Which is the most likely effect of this increase in rotation?", 
+        "choice": {
+            "text": "Planetary density will decrease.", "label": "A"
+        }, 
+        "support": {
+            "text": "As latitude increases and the speed of the earth's rotation decreases, Coriolis effect increases.", 
+            "type": "sentence", "ir_pos": 0, "ir_score": 33.626408
+        }
+    }, 
+    "answerKey": "C"
+}
+
+# data/ARC-V1-Feb2018/ARC-Challenge/ARC-Challenge-Test_predictions_dgem_default.jsonl
+{
+    "id": "Mercury_7175875", 
+    "question": {
+        "stem": "An astronomer observes that a planet rotates faster after a meteorite impact. Which is the most likely effect of this increase in rotation?", 
+        "choice": {"text": "Planetary density will decrease.", "label": "A"}, 
+        "support": {"text": "As latitude increases and the speed of the earth's rotation decreases, Coriolis effect increases.", "type": "sentence", "ir_pos": 0, "ir_score": 33.626408}
+    }, 
+    "answerKey": "C", 
+    "premise": "As latitude increases and the speed of the earth's rotation decreases, Coriolis effect increases.", 
+    "hypothesis": "An astronomer observes that a planet rotates faster after a meteorite impact. Planetary density will decrease is the most likely effect of this increase in rotation.", 
+    "hypothesisStructure": "An astronomer<>observes<>that a planet rotates faster after a meteorite impact$$$a planet<>rotates faster<>$$$Planetary density<>will decrease<>$$$Planetary density will decrease<>is<>the most likely effect of this increase in rotation", 
+    "score": 0.061089400202035904
+}
+
+
+# data/ARC-V1-Feb2018/ARC-Challenge/ARC-Challenge-Test_qapredictions_dgem_default.jsonl
+{
+    "id": "Mercury_7175875", 
+    "question": {
+        "stem": "An astronomer observes that a planet rotates faster after a meteorite impact. Which is the most likely effect of this increase in rotation?", 
+        "choices": [
+            {
+                "text": "Planetary density will decrease.", 
+                "label": "A", 
+                "score": 0.4049, 
+                "support": {
+                    "text": "One important effect of perturbations is the advance, or precession, of the perihelion of a planet, which can be described as a slow rotation of the entire planetary orbit.", 
+                    "type": "sentence", 
+                    "ir_pos": 3, 
+                    "ir_score": 31.249744
+                    }
+            }, 
+            {
+                "text": "Planetary years will become longer.", 
+                "label": "B", 
+                "score": 0.482, 
+                "support": {
+                    "text": "One important effect of perturbations is the advance, or precession, of the perihelion of a planet, which can be described as a slow rotation of the entire planetary orbit.", 
+                    "type": "sentence", 
+                    "ir_pos": 3, 
+                    "ir_score": 31.249744
+                }
+            }, 
+            {
+                "text": 
+                "Planetary days will become shorter.", 
+                "label": "C", 
+                "score": 0.1578, 
+                "support": {
+                    "text": "One important effect of perturbations is the advance, or precession, of the perihelion of a planet, which can be described as a slow rotation of the entire planetary orbit.", 
+                    "type": "sentence", 
+                    "ir_pos": 1, 
+                    "ir_score": 31.249744
+                }
+            }, 
+            {
+                "text": "Planetary gravity will become stronger.", "label": "D", "score": 0.1578, "support": {"text": "One important effect of perturbations is the advance, or precession, of the perihelion of a planet, which can be described as a slow rotation of the entire planetary orbit.", "type": "sentence", "ir_pos": 2, "ir_score": 31.249744}
+            }
+        ]
+    }, 
+    "answerKey": "C", 
+    "selected_answers": "B", 
+    "question_score": 0
+}
+

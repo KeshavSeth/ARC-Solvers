@@ -26,6 +26,7 @@ class EsSearch:
                  indices: str = "arc_corpus",
                  max_question_length: int = 1000,
                  max_hits_retrieved: int = 500,
+                 min_hit_length: int = 10,
                  max_hit_length: int = 300,
                  max_hits_per_choice: int = 100):
         """
@@ -35,13 +36,15 @@ class EsSearch:
         :param max_question_length: Max number of characters used from the question for the
         query (for efficiency)
         :param max_hits_retrieved: Max number of hits requested from ElasticSearch
-        :param max_hit_length: Max number of characters for accepted hits
+        :param min_hit_length: Max number of words for accepted hits
+        :param max_hit_length: Max number of words for accepted hits
         :param max_hits_per_choice: Max number of hits returned per answer choice
         """
         self._es = Elasticsearch([es_client], retries=3)
         self._indices = indices
         self._max_question_length = max_question_length
         self._max_hits_retrieved = max_hits_retrieved
+        self._min_hit_length = min_hit_length
         self._max_hit_length = max_hit_length
         self._max_hits_per_choice = max_hits_per_choice
         # Regex for negation words used to ignore Lucene results with negation
@@ -104,7 +107,9 @@ class EsSearch:
         for hit in hits:
             hit_sentence = hit.text
             hit_sentence = hit_sentence.strip().replace("\n", " ")
-            if len(hit_sentence) > self._max_hit_length:
+            if len(hit_sentence.split()) < self._min_hit_length:
+                continue
+            if len(hit_sentence.split()) > self._max_hit_length:
                 continue
             for negation_regex in self._negation_regexes:
                 if negation_regex.search(hit_sentence):
