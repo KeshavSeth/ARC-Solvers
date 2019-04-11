@@ -50,6 +50,8 @@ def convert_to_para_comprehension(hits_file: str, qa_file: str, output_file: str
     qid_stem = dict()
     qid_answer = dict()
     qid_sentences = dict()
+    len_limit = 100 # set support length limit
+    len_counter = 0
     with open(qa_file, 'r') as qa_handle:
         for line in qa_handle:
             json_line = json.loads(line)
@@ -66,9 +68,14 @@ def convert_to_para_comprehension(hits_file: str, qa_file: str, output_file: str
             json_line = json.loads(line)
             qid = json_line["id"]
             sentence = json_line["question"]["support"]["text"]
+            # Add sentence length limit
+            if len(sentence.split()) > len_limit:
+                len_counter += 1
+                continue
             if not sentence.endswith("."):
                 sentence = sentence + "."
             qid_sentences[qid].append(sentence)
+    print(f'num of support text > {len_limit} tokens: {len_counter}')
 
     with open(output_file, 'w') as output_handle:
         for qid, sentences in qid_sentences.items():
