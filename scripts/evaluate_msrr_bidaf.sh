@@ -11,12 +11,13 @@ set -e
 
 input_file=$1
 model_dir=$2
+run_name=$3
 # Set this to name your run
 #run_name=default
-run_name=msrr_1M_hypo
+#run_name=msrr_1M_hypo
 
 if [ -z $model_dir ] ; then
-  echo "USAGE: ./scripts/evaluate_bidaf.sh question_file.jsonl model_dir"
+  echo "USAGE: ./scripts/evaluate_bidaf.sh question_file.jsonl model_dir run_name"
   exit 1
 fi
 
