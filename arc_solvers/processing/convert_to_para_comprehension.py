@@ -50,8 +50,14 @@ def convert_to_para_comprehension(hits_file: str, qa_file: str, output_file: str
     qid_stem = dict()
     qid_answer = dict()
     qid_sentences = dict()
-    len_limit = 100 # set support length limit
+    # set max/min sentence length constraint
+    max_len = 100
+    min_len = 5
     len_counter = 0
+    # ignore duplicate support text for the same question
+    ignore_duplicate = True
+    support_counter = 0
+
     with open(qa_file, 'r') as qa_handle:
         for line in qa_handle:
             json_line = json.loads(line)
@@ -61,21 +67,35 @@ def convert_to_para_comprehension(hits_file: str, qa_file: str, output_file: str
             qid_sentences[qid] = []
             qid_stem[qid] = json_line["question"]["stem"]
             qid_answer[qid] = json_line["answerKey"]
-
+    
     with open(hits_file, 'r') as hits_handle:
+        if ignore_duplicate:
+            support_set = set()
+            last_qid = None
         print("Writing to {} from {}".format(output_file, hits_file))
         for line in hits_handle:
             json_line = json.loads(line)
             qid = json_line["id"]
             sentence = json_line["question"]["support"]["text"]
-            # Add sentence length limit
-            if len(sentence.split()) > len_limit:
-                len_counter += 1
-                continue
             if not sentence.endswith("."):
                 sentence = sentence + "."
-            qid_sentences[qid].append(sentence)
-    print(f'num of support text > {len_limit} tokens: {len_counter}')
+            # Add sentence length limit
+            if len(sentence.split()) >= max_len or len(sentence.split()) <= min_len:
+                len_counter += 1
+                continue
+            # Ignore duplicate support
+            if ignore_duplicate:
+                if last_qid == qid or last_qid is None:
+                    support_set.add(sentence)
+                    support_counter += 1
+                else:
+                    qid_sentences[qid] = list(support_set)
+                    support_set = set()
+                last_qid = qid
+            else:
+                qid_sentences[qid].append(sentence)
+    print(f'num of support text has length not within {min_len}-{max_len} tokens: {len_counter}')
+    print(f'num of support text per question: {support_counter / len(qid_sentences)} ({support_counter}/{len(qid_sentences)})')
 
     with open(output_file, 'w') as output_handle:
         for qid, sentences in qid_sentences.items():
@@ -91,7 +111,6 @@ def convert_to_para_comprehension(hits_file: str, qa_file: str, output_file: str
                 }
                 output_handle.write(json.dumps(output_dict))
                 output_handle.write("\n")
-
 
 if __name__ == "__main__":
     if len(sys.argv) < 4:

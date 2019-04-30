@@ -13,14 +13,16 @@ input_file=$1
 model_dir=$2
 # Set this to name your run
 #run_name=default
-run_name=msrr_1M
+run_name=msrr_1M_hypo
 
 if [ -z $model_dir ] ; then
   echo "USAGE: ./scripts/evaluate_bidaf.sh question_file.jsonl model_dir"
   exit 1
 fi
 
-input_file_prefix="data/ARC-V1-Feb2018/ARC-Challenge/ARC-Challenge-Test"
+#input_file_prefix="data/ARC-V1-Feb2018/ARC-Challenge/ARC-Challenge-Test"
+input_file_prefix="output/ARC-Challenge-Test"
+test_file_path="data/ARC-V1-Feb2018/ARC-Challenge/ARC-Challenge-Test.jsonl"
 model_name=$(basename ${model_dir})
 
 # File containing retrieved hits per choice (using the key "support")
@@ -33,7 +35,7 @@ bidaf_input=${input_file_prefix}_with_paras_${run_name}.jsonl
 if [ ! -f ${bidaf_input} ]; then
   python arc_solvers/processing/convert_to_para_comprehension.py \
     ${input_file} \
-    ${input_file_prefix}.jsonl \
+    ${test_file_path} \
     ${bidaf_input}.$$
   mv ${bidaf_input}.$$ ${bidaf_input}
 fi
@@ -41,7 +43,7 @@ fi
 # Run BiDafModel
 bidaf_output=${input_file_prefix}_qapredictions_bidaf_${model_name}_${run_name}.jsonl
 if [ ! -f ${bidaf_output} ]; then
-  python arc_solvers/run.py predict --cuda-device 1 \
+  python arc_solvers/run.py predict --cuda_device 0 \
     --output-file ${bidaf_output}.$$ --silent \
     ${model_dir}/model.tar.gz \
     ${bidaf_input}
